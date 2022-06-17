@@ -6,7 +6,7 @@ package main
 
 import "han109k/cliApp/cmd"
 
-// main called after all init() are run
+// main.main() called after all init() are run
 func main() {
 	cmd.Execute()
 }
