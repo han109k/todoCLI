@@ -5,7 +5,7 @@ import (
 	"han109k/cliApp/todo"
 	"log"
 	"os"
-	"strconv"
+	"sort"
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
@@ -25,12 +25,13 @@ func listRun(cmd *cobra.Command, args []string) {
 	if err != nil {
 		log.Printf("%v", err)
 	}
-	fmt.Println(items)
+
+	sort.Sort(todo.ByPrio(items))
 
 	// tab writer
 	w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)
 	for _, i := range items {
-		fmt.Fprintln(w, strconv.Itoa(i.Priority)+"\t"+i.Text+"\t")
+		fmt.Fprintln(w, i.Label()+"\t"+i.PrettyP()+"\t"+i.Text+"\t")
 	}
 
 	w.Flush()
