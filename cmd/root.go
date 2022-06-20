@@ -43,6 +43,11 @@ func Execute() {
 }
 
 func initConfig() {
+	if cfgFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(cfgFile)
+	}
+
 	viper.SetConfigName(".cliApp")
 	viper.AddConfigPath("$HOME")
 	viper.AutomaticEnv()
