@@ -87,6 +87,13 @@ func (i *Item) PrettyP() string {
 	return " "
 }
 
+func (i *Item) PrettyDone() bool {
+	if i.Done {
+		return true
+	}
+	return false
+}
+
 // ByPrio implements sort.Interface for []Item based on
 // the Priority and position field.
 type ByPrio []Item
@@ -98,6 +105,9 @@ func (s ByPrio) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 func (s ByPrio) Less(i int, j int) bool {
+	if s[i].Done != s[j].Done {
+		return s[i].Done
+	}
 	if s[i].Priority == s[j].Priority {
 		return s[i].position < s[j].position
 	}
