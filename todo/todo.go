@@ -13,6 +13,17 @@ type Item struct {
 	Done     bool
 }
 
+func (i *Item) Label() string {
+	return strconv.Itoa(i.position) + "."
+}
+
+func (i *Item) PrettyDone() bool {
+	if i.Done {
+		return true
+	}
+	return false
+}
+
 // Priorty of the todo item
 func (i *Item) SetPriority(pri int) {
 	switch pri {
@@ -62,10 +73,6 @@ func ReadItems(filename string) ([]Item, error) {
 	return items, nil
 }
 
-func (i *Item) Label() string {
-	return strconv.Itoa(i.position) + "."
-}
-
 // Pretty print the todo items
 func (i *Item) PrettyP() string {
 	if i.Priority == 1 {
@@ -85,13 +92,6 @@ func (i *Item) PrettyP() string {
 	}
 
 	return " "
-}
-
-func (i *Item) PrettyDone() bool {
-	if i.Done {
-		return true
-	}
-	return false
 }
 
 // ByPrio implements sort.Interface for []Item based on
